@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/ZAK-TECH/todo/issues"
   },
-  "homepage": "https://github.com/ZAK-TECH/todo#readme"
+  "homepage": "https://github.com/ZAK-TECH/todo#readme",
+  "devDependencies": {
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11"
+  }
 }
