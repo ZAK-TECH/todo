@@ -19,8 +19,9 @@
     
     cell1.innerHTML = todo.name;
     cell2.innerHTML=todo.toDoDate;
-    cell3.innerHTML=`<span class="badge badge-warning">${todo.state}</span>`;
-    cell4.innerHTML=`<div class="dropdown"><button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">State</button><div class="dropdown-menu"><button class="dropdown-item btn btn-primary "  onclick="setToDo(${todo.id})" >ToDo</button><button class="dropdown-item" onclick="setDone(${todo.id})">Done</button></div></div>`;
+    if(todo.state=="ToDo")cell3.innerHTML=`<span class="badge badge-warning">${todo.state}</span>`;
+    else cell3.innerHTML=`<span class="badge  badge-success">${todo.state}</span>`;
+    cell4.innerHTML=`<div class="dropdown"><button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">State</button><div class="dropdown-menu"><button class="dropdown-item btn btn-primary "  onclick="setToDo(${todo.id});return true" >ToDo</button><button class="dropdown-item" onclick="setDone(${todo.id});return true">Done</button></div></div>`;
     cell5.innerHTML=`<div class="custom-control custom-switch"><input type="checkbox" class="custom-control-input" id="customSwitch${todo.id}" ><label class="custom-control-label" for="customSwitch${todo.id}"></label></div>`;
 
     });
