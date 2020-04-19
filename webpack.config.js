@@ -3,10 +3,10 @@ const path=require('path')
 module.exports={
     mode:"development",
     entry:{
-        myfile:'./src/index.js'
+        renderDOM:'./src/RenderDOM.js'
     },
     output:{
-        path: path.resolve(__dirname,'build'),
+        path: path.resolve(__dirname,'dist'),
         filename:'js/[name].js'
  
     }
