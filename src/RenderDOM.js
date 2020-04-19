@@ -1,6 +1,6 @@
 
     
-   function RenderList() { 
+  export function RenderList() { 
     
     let todolist=[];
     let lastList=JSON.parse(localStorage.getItem('MyToDoList'));
@@ -32,4 +32,4 @@
     });
 
   }
-  RenderList();
+  

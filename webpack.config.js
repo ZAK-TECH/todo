@@ -3,7 +3,7 @@ const path=require('path')
 module.exports={
     mode:"development",
     entry:{
-        renderDOM:'./src/RenderDOM.js'
+        index:'./src/index.js'
     },
     output:{
         path: path.resolve(__dirname,'dist'),
