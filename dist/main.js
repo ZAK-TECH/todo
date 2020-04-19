@@ -42,7 +42,7 @@ function storeToLocalStorage(){
     cell1.innerHTML =todoObject.name;
     cell2.innerHTML=todoObject.toDoDate;
     cell3.innerHTML=`<span class="badge badge-warning">${todoObject.state}</span>`;
-    cell4.innerHTML='<div class="dropdown"><button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">State</button><div class="dropdown-menu"><button class="dropdown-item btn btn-primary " >ToDo</button><button class="dropdown-item">Done</button></div></div>';
+    cell4.innerHTML=`<div class="dropdown"><button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">State</button><div class="dropdown-menu"><button class="dropdown-item btn btn-primary "  onclick="setToDo(${todoObject.id})" >ToDo</button><button class="dropdown-item" onclick="setDone(${todoObject.id})">Done</button></div></div>`;
     cell5.innerHTML=`<div class="custom-control custom-switch"><input type="checkbox" class="custom-control-input" id="customSwitch${todoObject.id}" ><label class="custom-control-label" for="customSwitch${todoObject.id}"></label></div>`;
     document.getElementById("ToDoForm").reset();
 
