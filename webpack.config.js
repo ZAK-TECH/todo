@@ -1,7 +1,8 @@
 const path=require('path')
-
+const mode=process.env.isDev ?'development':'production'
+console.log(mode);
 module.exports={
-    mode:"development",
+    mode,
     entry:{
         index:'./src/index.js'
     },

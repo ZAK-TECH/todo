@@ -4,8 +4,9 @@
   "description": "**Functional specifications**\r •                   Todo list should be saved (after browser closing) you can use local storage for that\r •                   User can add the todo datetime (in the todo creation process)\r •                   Use badge to show current state of the todo (done or todo)\r •                   User can mark todo as (todo or done) // use drop down\r •                   User can mark todo as important\r •                   User can (undo redo) the todolist state (max 5 steps)\r •                   Add todo datetime (when user create the todo)\r •                   Show an alert message (if actual date == the todo date)\r           **Technical specifications**               \r •                   Use es6 standards\r •                   Use webpack\r •                   Use a modular approche (prepare the conception)",
   "main": "index.js",
   "scripts": {
-    "dev":"webpack-dev-server",
-    "build": "webpack"
+    "server": "set isDev=1 && webpack-dev-server",
+    "dev": "set isDev=1 && webpack",
+    "prod": "webpack"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
     "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "path": "^0.12.7"
   }
 }
