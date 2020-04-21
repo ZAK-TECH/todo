@@ -55,7 +55,7 @@ location.reload();
 
 } 
 
-export function setToDo(){
+export function changeState(){
 
   let todolist=[];
   let lastList=JSON.parse(localStorage.getItem('MyToDoList'));
@@ -72,33 +72,22 @@ export function setToDo(){
         location.reload();
 
     });
-    }
+    }else{
+    
+      const butonId='D'+todo.id;
+      const setDoneButton=document.getElementById(butonId);
+      setDoneButton.addEventListener("click",()=>{
+          todo.state="Done";
+      //    localStorage.removeItem('MyToDoList');
+          localStorage.setItem('MyToDoList',JSON.stringify(todolist));
+          location.reload();
+  
+      }); 
+      }
      
 });
 
 }
 
-export function setDone(){
 
-  let todolist=[];
-  let lastList=JSON.parse(localStorage.getItem('MyToDoList'));
-  if(lastList!=null)todolist=lastList;
-
-  todolist.forEach( (todo)=>{
-    if(todo.state=='ToDo'){
-    
-    const butonId='D'+todo.id;
-    const setDoneButton=document.getElementById(butonId);
-    setDoneButton.addEventListener("click",()=>{
-        todo.state="Done";
-    //    localStorage.removeItem('MyToDoList');
-        localStorage.setItem('MyToDoList',JSON.stringify(todolist));
-        location.reload();
-
-    }); 
-    }
-    
-});
-
-}
 
