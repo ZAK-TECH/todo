@@ -10,7 +10,6 @@ export function isImportant(){
       const isImportantButton=document.getElementById(buttonId);
       isImportantButton.addEventListener("change",()=>{
           todo.isImportant=isImportantButton.checked;
-          console.log(isImportantButton.checked);
           localStorage.setItem('MyToDoList',JSON.stringify(todolist));
 
       });
