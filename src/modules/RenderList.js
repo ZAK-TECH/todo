@@ -1,7 +1,7 @@
 
     
   export function RenderList() { 
-    
+    document.getElementById("ToDoForm").reset();
     let todolist=[];
     let lastList=JSON.parse(localStorage.getItem('MyToDoList'));
     let table = document.getElementById("ToDoTable");
@@ -15,6 +15,7 @@
     let cell3 = row.insertCell(2);
     let cell4 = row.insertCell(3);
     let cell5=row.insertCell(4);
+    let cell6=row.insertCell(5);
  
     cell1.innerHTML = todo.name;
     cell2.innerHTML=todo.toDoDate;
@@ -28,6 +29,10 @@
   
     cell5.innerHTML=`<div class="custom-control custom-switch"><input type="checkbox" class="custom-control-input" id="customSwitch${todo.id}" ><label class="custom-control-label" for="customSwitch${todo.id}"></label></div>`;
     document.getElementById('customSwitch'+todo.id).checked=todo.isImportant;
+    cell6.innerHTML=`<button type="button" class="btn btn-danger" id="rm${todo.id}">X</button>`;
+    
+   
+
    
     });
 
