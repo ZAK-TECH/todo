@@ -27,7 +27,7 @@
     }
   
     cell5.innerHTML=`<div class="custom-control custom-switch"><input type="checkbox" class="custom-control-input" id="customSwitch${todo.id}" ><label class="custom-control-label" for="customSwitch${todo.id}"></label></div>`;
-
+    document.getElementById('customSwitch'+todo.id).checked=todo.isImportant;
    
     });
 
