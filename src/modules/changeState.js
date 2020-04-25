@@ -1,17 +1,22 @@
+
 export function changeState(){
 
-    let todolist=[];
-    let lastList=JSON.parse(localStorage.getItem('MyToDoList'));
-    if(lastList!=null)todolist=lastList;
+    let todolist=JSON.parse(localStorage.getItem('MyToDoList')) ? JSON.parse(localStorage.getItem('MyToDoList')):[];
+    let todolist_undo= JSON.parse(localStorage.getItem('todolist_undo')) ? JSON.parse(localStorage.getItem('todolist_undo')) : [];
   
     todolist.forEach( (todo)=>{
       if(todo.state=='Done'){
       const buttonId='T'+todo.id;
       const setToDoButton=document.getElementById(buttonId);
       setToDoButton.addEventListener("click",()=>{
+
+        /* save current State to Undo array before Changing */
+        todolist_undo.unshift(todolist);
+        localStorage.setItem('todolist_undo',JSON.stringify(todolist_undo));
+
           todo.state="ToDo";
-      //    localStorage.removeItem('MyToDoList');
           localStorage.setItem('MyToDoList',JSON.stringify(todolist));
+         // RenderList();
           location.reload();
   
       });
@@ -20,9 +25,14 @@ export function changeState(){
         const butonId='D'+todo.id;
         const setDoneButton=document.getElementById(butonId);
         setDoneButton.addEventListener("click",()=>{
+            
+            /* save current State to Undo array before Changing */
+        todolist_undo.unshift(todolist);
+        localStorage.setItem('todolist_undo',JSON.stringify(todolist_undo));
+
             todo.state="Done";
-        //    localStorage.removeItem('MyToDoList');
             localStorage.setItem('MyToDoList',JSON.stringify(todolist));
+             //RenderList();
             location.reload();
     
         }); 

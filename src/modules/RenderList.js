@@ -1,14 +1,12 @@
 
-    
-  export function RenderList() { 
-    document.getElementById("ToDoForm").reset();
-    let todolist=[];
-    let lastList=JSON.parse(localStorage.getItem('MyToDoList'));
-    let table = document.getElementById("ToDoTable");
 
-    if(lastList!=null)todolist=lastList;
-    todolist.forEach( (todo)=>{
-  
+  export function RenderList() { 
+    
+    let todolist=JSON.parse(localStorage.getItem('MyToDoList'))?JSON.parse(localStorage.getItem('MyToDoList')):[];
+    let table = document.getElementById("ToDoTable");
+    table.innerHTML='<thead> <tr><th class="pr-5" >ToDo </th><th class="pr-5"> Todo On date:</th><th class="pr-5">State :</th><th class="pr-5" >Change state</th><th class="pr-5"> Important</th><th class="pr-5"> Remove</th></tr></thead>';
+    todolist.forEach( (todo,index)=>{
+    
     let row = table.insertRow(0);
     let cell1 = row.insertCell(0);
     let cell2 = row.insertCell(1);
@@ -29,10 +27,7 @@
   
     cell5.innerHTML=`<div class="custom-control custom-switch"><input type="checkbox" class="custom-control-input" id="customSwitch${todo.id}" ><label class="custom-control-label" for="customSwitch${todo.id}"></label></div>`;
     document.getElementById('customSwitch'+todo.id).checked=todo.isImportant;
-    cell6.innerHTML=`<button type="button" class="btn btn-danger" id="rm${todo.id}">X</button>`;
-    
-   
-
+    cell6.innerHTML=`<button type="button" class="btn btn-danger" id="rm${index}">X</button>`;
    
     });
 

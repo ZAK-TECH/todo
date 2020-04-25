@@ -1,3 +1,4 @@
+import {RenderList} from './RenderList';
 export default class Todo{
   constructor(name,toDoDate,state='ToDo',isImportant=false){
       this.id=Date.now();
@@ -7,7 +8,8 @@ export default class Todo{
       this.isImportant=isImportant;
   
     } 
-}
+
+  }
   
 
 export function AddTodo(){
@@ -18,9 +20,12 @@ ToDoForm.addEventListener("submit",(event)=>{
 
   /* get last todo list from localstorage before writing to it */
 
-let todolist=[];
-let lastList=JSON.parse(localStorage.getItem('MyToDoList'));
-if(lastList!=null)todolist=lastList;
+let todolist=JSON.parse(localStorage.getItem('MyToDoList')) ? JSON.parse(localStorage.getItem('MyToDoList')):[];
+let todolist_undo= JSON.parse(localStorage.getItem('todolist_undo')) ? JSON.parse(localStorage.getItem('todolist_undo')) : [];
+
+/* save current todolist to Undo array before adding */
+todolist_undo.unshift(todolist);
+localStorage.setItem('todolist_undo',JSON.stringify(todolist_undo));
 
 /* add  todo to local storage */
 
@@ -30,10 +35,12 @@ let toDoDate=document.getElementById("toDoDate").value;
       if(toDoDate=="")toDoDate="Not mentionned";
       let todoObject=new Todo(todo,toDoDate);
       todolist.push(todoObject);
-      //console.warn('added',todolist);
 localStorage.setItem('MyToDoList',JSON.stringify(todolist));
-document.getElementById("ToDoForm").reset();
 
+
+
+document.getElementById("ToDoForm").reset();
+//RenderList();
 location.reload();
 
 
@@ -41,17 +48,23 @@ location.reload();
 
 } 
 export function RemoveTodo(){
-  let todolist=[];
-    let lastList=JSON.parse(localStorage.getItem('MyToDoList'));
-    if(lastList!=null)todolist=lastList;
+  let todolist=JSON.parse(localStorage.getItem('MyToDoList'))?JSON.parse(localStorage.getItem('MyToDoList')):[];
+  let todolist_undo= JSON.parse(localStorage.getItem('todolist_undo')) ? JSON.parse(localStorage.getItem('todolist_undo')) : [];
+  
   
     todolist.forEach( (todo,index)=>{
       
-      const buttonId='rm'+todo.id;
+      const buttonId='rm'+index;
       const removeButton=document.getElementById(buttonId);
+
       removeButton.addEventListener("click",()=>{
+        /* save current todolist to Undo array before Removing */
+          todolist_undo.unshift(todolist);
+          localStorage.setItem('todolist_undo',JSON.stringify(todolist_undo));
+
           todolist.splice(index,1)
           localStorage.setItem('MyToDoList',JSON.stringify(todolist));
+          //RenderList(); 
           location.reload();
       });
      
