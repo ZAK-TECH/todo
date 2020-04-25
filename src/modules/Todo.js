@@ -1,4 +1,4 @@
-import {RenderList} from './RenderList';
+import moment from "moment";
 export default class Todo{
   constructor(name,toDoDate,state='ToDo',isImportant=false){
       this.id=Date.now();
@@ -32,7 +32,7 @@ localStorage.setItem('todolist_undo',JSON.stringify(todolist_undo));
 let todo=document.getElementById("toDoInput").value;
 let toDoDate=document.getElementById("toDoDate").value;
 
-      if(toDoDate=="")toDoDate="Not mentionned";
+      toDoDate=toDoDate?moment(toDoDate).format("D/M/YYYY"):"Not mentionned";
       let todoObject=new Todo(todo,toDoDate);
       todolist.push(todoObject);
 localStorage.setItem('MyToDoList',JSON.stringify(todolist));
