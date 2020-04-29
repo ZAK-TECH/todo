@@ -1,55 +1,60 @@
-export function Undo(){
-    const undo_btn=document.getElementById("undo_btn");
-    undo_btn.addEventListener("click",(event)=>{
-    event.preventDefault();
-    let MyToDoList=JSON.parse(localStorage.getItem('MyToDoList'))?JSON.parse(localStorage.getItem('MyToDoList')):[];
-    let todolist_undo = JSON.parse(localStorage.getItem('todolist_undo')) ? JSON.parse(localStorage.getItem('todolist_undo')) : []
-    let todolist_redo = JSON.parse(localStorage.getItem('todolist_redo')) ? JSON.parse(localStorage.getItem('todolist_redo')) : []
-    if(todolist_undo && todolist_undo.length>0){
+import {getStorageData,SetStorageData} from './storage';
+
+let todolist_undo = []
+let todolist_redo = []
+let limit_undo=0;
+let limit_redo=0;
+
+export const update_undo_array=()=>{
+    limit_undo=0;limit_redo=0;
+    let current_todolist=getStorageData("current_todolist")?getStorageData("current_todolist"):[];
+    todolist_undo.unshift(current_todolist);
+    /* console.log(todolist_undo); */
+}
+
+export const update_redo_array=()=>{
+    let current_todolist=getStorageData("current_todolist")?getStorageData("current_todolist"):[];
+    todolist_redo.unshift(current_todolist);
+    /* console.log(todolist_undo);  */
+}
+
+
+export const Undo=()=>{
+limit_undo++;
+    if(todolist_undo && todolist_undo.length>0 && limit_undo<6){
       
       //save current todolist to redo array before going back
-      todolist_redo.unshift(MyToDoList);
-      localStorage.setItem('todolist_redo', JSON.stringify(todolist_redo));
+      update_redo_array();
 
       //update  current Todolist   with the first  ellement of undo Array
-      localStorage.setItem('MyToDoList', JSON.stringify(todolist_undo[0]));
-
+      SetStorageData("current_todolist",todolist_undo[0])
+    
       //remove the first element of (todolist_undo)
-      todolist_undo.splice(0, 1)
-      localStorage.setItem('todolist_undo', JSON.stringify(todolist_undo))
-      location.reload();
+      todolist_undo.splice(0, 1);
+      /* console.log("Undo Array :\n"+todolist_undo); */
       }
     else{
       alert('there is no other step backward')
     }
-    });
 }
        
-  export function Redo(){
-    const redo_btn=document.getElementById("redo_btn");
-    redo_btn.addEventListener("click",(event)=>{
-    event.preventDefault();
-    let MyToDoList=JSON.parse(localStorage.getItem('MyToDoList'))?JSON.parse(localStorage.getItem('MyToDoList')):[];
-    let todolist_undo = JSON.parse(localStorage.getItem('todolist_undo')) ? JSON.parse(localStorage.getItem('todolist_undo')) : []
-    let todolist_redo = JSON.parse(localStorage.getItem('todolist_redo')) ? JSON.parse(localStorage.getItem('todolist_redo')) : []
-    
-    if(todolist_redo && todolist_redo.length>0){
+  export const Redo=()=>{
+limit_redo++;
+    if(todolist_redo && todolist_redo.length>0 && limit_redo<6){
 
       //save current todolist to Undo array before going forward
-      todolist_undo.unshift(MyToDoList);
-      localStorage.setItem('todolist_undo', JSON.stringify(todolist_undo));
+      update_undo_array();
 
       //update  current Todolist   with the first  ellement of Redo Array
-      localStorage.setItem('MyToDoList', JSON.stringify(todolist_redo[0]));
+      SetStorageData("current_todolist",todolist_redo[0])
 
       //remove the first element of (todolist_redo)
-      todolist_redo.splice(0, 1)
-      localStorage.setItem('todolist_redo', JSON.stringify(todolist_redo))
-      location.reload();
+      todolist_redo.splice(0, 1);
+     /*  console.log("Redo array \n"+todolist_redo); */   
       }
     else{
       alert('There is no other step forward')
       
     }
-});
+
   }
